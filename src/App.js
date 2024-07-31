@@ -1,11 +1,10 @@
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
-import { Fragment, useEffect } from "react";
-import { uiActions } from "./store/ui-slice";
 import Notification from "./components/UI/Notification";
-import { sendCartData } from "./store/cart-slice";
+import { fetchCartData, sendCartData } from "./store/cart-actions";
 
 let isInitial = true;
 
@@ -16,6 +15,12 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
+    console.log("useEffect ke 1");
+    dispatch(fetchCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("useEffect ke 2");
     if (isInitial) {
       isInitial = false;
       return;
